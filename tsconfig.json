@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"moduleResolution": "node",
+		"outDir": "dist",
+		"target": "es5",
+		"sourceMap": false,
+		"lib": ["es2017", "es2015", "es6"],
+		"noImplicitAny": true,
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"allowSyntheticDefaultImports": true,
+		"allowJs": false,
+		"declarationMap": false,
+		"declaration": true,
+		"declarationDir": "dist"
+	},
+	"exclude": [
+		"**/*.test.*",
+		"coverage"
+	]
+}

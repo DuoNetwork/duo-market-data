@@ -1,0 +1,65 @@
+{
+	"name": "@finbook/duo-market-data",
+	"version": "1.0.0",
+	"description": "DUO Market Data",
+	"author": "FinBook Pte Ltd",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"test": "jest",
+		"prebuild": "rimraf dist",
+		"build": "tsc",
+		"postbuild": "npm pack",
+		"tslint": "tslint -c tslint.json -p tsconfig.json src/**/*.ts{,x} --fix"
+	},
+	"jest": {
+		"roots": [
+			"<rootDir>/src"
+		],
+		"transform": {
+			"^.+\\.tsx?$": "ts-jest"
+		},
+		"testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+		"moduleFileExtensions": [
+			"ts",
+			"tsx",
+			"js",
+			"jsx",
+			"json",
+			"node"
+		]
+	},
+	"devDependencies": {
+		"@babel/polyfill": "^7.2.5",
+		"@types/jest": "^23.3.13",
+		"coveralls": "^3.0.2",
+		"jest": "^23.6.0",
+		"pre-commit": "^1.2.2",
+		"rimraf": "^2.6.3",
+		"ts-jest": "^23.10.5",
+		"tslint": "^5.12.1",
+		"typescript": "^3.1.6"
+	},
+	"dependencies": {
+		"@finbook/duo-contract-wrapper": "^1.1.0",
+		"aws-sdk": "^2.395.0",
+		"moment": "^2.24.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/FinBook/duo-market-data.git"
+	},
+	"keywords": [
+		"DUO",
+		"Market",
+		"Data"
+	],
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/FinBook/duo-market-data/issues"
+	},
+	"homepage": "https://github.com/FinBook/duo-market-data#readme",
+	"files": [
+		"dist"
+	]
+}
