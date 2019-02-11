@@ -67,7 +67,7 @@ export class DynamoUtil {
 		};
 	}
 
-	public convertEventToDynamo(event: IEvent, sysTime: number) {
+	public convertEventToDynamo(event: IEvent, sysTime: number): AttributeMap {
 		let addr = '';
 		if (
 			event.type === WrapperConstants.EVENT_CREATE ||
