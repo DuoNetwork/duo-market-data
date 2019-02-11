@@ -56,7 +56,7 @@ export class DynamoUtil {
 		);
 	}
 
-	public convertTradeToDynamo(trade: ITrade, systime: number) {
+	public convertTradeToDynamo(trade: ITrade, systime: number): AttributeMap {
 		return {
 			[CST.DB_TX_QUOTE_BASE_ID]: { S: `${trade.quote}|${trade.base}|${trade.id}` },
 			[CST.DB_TX_PRICE]: { N: trade.price.toString() },
