@@ -102,7 +102,7 @@ export class DynamoUtil {
 		};
 		for (const key in event.parameters)
 			dbInput[key] = {
-				S: event.parameters[key]
+				S: event.parameters[key].toString()
 			};
 		return dbInput;
 	}
