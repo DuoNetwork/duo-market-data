@@ -221,7 +221,7 @@ Array [
           "N": "5",
         },
       },
-      "TableName": "duo.dev.prices.1440",
+      "TableName": "duo.prices.1440.dev",
     },
   ],
 ]
@@ -487,7 +487,7 @@ Array [
           "S": "txHash",
         },
       },
-      "TableName": "duo.dev.uiEvents",
+      "TableName": "duo.uiEvents.dev",
     },
   ],
 ]
@@ -577,7 +577,7 @@ Array [
         },
       },
       "KeyConditionExpression": "sourceDateHourMinute = :sourceDateHourMinute AND quoteBaseId BETWEEN :start AND :end",
-      "TableName": "duo.dev.trades",
+      "TableName": "duo.trades.dev",
     },
   ],
 ]
@@ -710,7 +710,7 @@ Array [
         },
       },
       "KeyConditionExpression": "sourceDateHourMinute = :sourceDateHourMinute",
-      "TableName": "duo.dev.trades",
+      "TableName": "duo.trades.dev",
     },
   ],
 ]
@@ -749,7 +749,7 @@ Array [
         },
       },
       "KeyConditionExpression": "sourceDateHour = :primaryValue AND quoteBaseTimestamp BETWEEN :start AND :end",
-      "TableName": "duo.dev.prices.1",
+      "TableName": "duo.prices.1.dev",
     },
   ],
 ]
@@ -864,7 +864,7 @@ Array [
         },
       },
       "KeyConditionExpression": "sourceDateHourMinute = :sourceDateHourMinute AND quoteBaseId BETWEEN :start AND :end",
-      "TableName": "duo.dev.trades",
+      "TableName": "duo.trades.dev",
     },
   ],
 ]
@@ -924,7 +924,7 @@ Array [
         },
       },
       "KeyConditionExpression": "sourceDateHourMinute = :sourceDateHourMinute",
-      "TableName": "duo.dev.trades",
+      "TableName": "duo.trades.dev",
     },
   ],
 ]
@@ -940,7 +940,7 @@ Array [
         },
       },
       "KeyConditionExpression": "sourceDateHourMinute = :sourceDateHourMinute",
-      "TableName": "duo.dev.trades",
+      "TableName": "duo.trades.dev",
     },
   ],
 ]
@@ -987,7 +987,7 @@ Array [
           "S": "txHash",
         },
       },
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
   Array [
@@ -1018,7 +1018,7 @@ Array [
           "S": "txHash",
         },
       },
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
   Array [
@@ -1049,7 +1049,7 @@ Array [
           "S": "txHash",
         },
       },
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
   Array [
@@ -1080,7 +1080,7 @@ Array [
           "S": "txHash",
         },
       },
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
   Array [
@@ -1111,7 +1111,7 @@ Array [
           "S": "txHash",
         },
       },
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
   Array [
@@ -1142,7 +1142,7 @@ Array [
           "S": "txHash",
         },
       },
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
 ]
@@ -1351,7 +1351,7 @@ Array [
           "N": "1234567890",
         },
       },
-      "TableName": "duo.dev.status",
+      "TableName": "duo.status.dev",
     },
   ],
 ]
@@ -1385,7 +1385,7 @@ Array [
         },
         "test": "test",
       },
-      "TableName": "duo.dev.status",
+      "TableName": "duo.status.dev",
     },
   ],
 ]
@@ -1495,7 +1495,7 @@ Array [
           "N": "1234567890",
         },
       },
-      "TableName": "duo.dev.trades",
+      "TableName": "duo.trades.dev",
     },
   ],
   Array [
@@ -1523,7 +1523,7 @@ Array [
           "N": "1234567890",
         },
       },
-      "TableName": "duo.dev.status",
+      "TableName": "duo.status.dev",
     },
   ],
 ]
@@ -1556,7 +1556,7 @@ Array [
           "N": "1234567890",
         },
       },
-      "TableName": "duo.dev.trades",
+      "TableName": "duo.trades.dev",
     },
   ],
 ]
@@ -1589,7 +1589,7 @@ Array [
           "S": "0x123",
         },
       },
-      "TableName": "duo.dev.uiEvents",
+      "TableName": "duo.uiEvents.dev",
     },
   ],
 ]
@@ -1999,7 +1999,7 @@ Array [
         },
       },
       "KeyConditionExpression": "eventKey = :eventKey",
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
   Array [
@@ -2010,7 +2010,7 @@ Array [
         },
       },
       "KeyConditionExpression": "eventKey = :eventKey",
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
 ]
@@ -2075,7 +2075,7 @@ Array [
         },
       },
       "KeyConditionExpression": "eventKey = :eventKey",
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
   Array [
@@ -2086,7 +2086,7 @@ Array [
         },
       },
       "KeyConditionExpression": "eventKey = :eventKey",
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
   Array [
@@ -2097,7 +2097,7 @@ Array [
         },
       },
       "KeyConditionExpression": "eventKey = :eventKey",
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
   Array [
@@ -2108,7 +2108,7 @@ Array [
         },
       },
       "KeyConditionExpression": "eventKey = :eventKey",
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
 ]
@@ -2135,7 +2135,7 @@ Array [
         },
       },
       "KeyConditionExpression": "eventKey = :eventKey",
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
   Array [
@@ -2146,7 +2146,7 @@ Array [
         },
       },
       "KeyConditionExpression": "eventKey = :eventKey",
-      "TableName": "duo.dev.events",
+      "TableName": "duo.events.dev",
     },
   ],
 ]
@@ -2189,7 +2189,7 @@ Array [
         },
       },
       "KeyConditionExpression": "eventKey = :eventKey",
-      "TableName": "duo.dev.uiEvents",
+      "TableName": "duo.uiEvents.dev",
     },
   ],
   Array [
@@ -2200,7 +2200,7 @@ Array [
         },
       },
       "KeyConditionExpression": "eventKey = :eventKey",
-      "TableName": "duo.dev.uiEvents",
+      "TableName": "duo.uiEvents.dev",
     },
   ],
 ]
@@ -2236,7 +2236,7 @@ Array [
         },
       },
       "KeyConditionExpression": "process = :process",
-      "TableName": "duo.dev.status",
+      "TableName": "duo.status.dev",
     },
   ],
 ]
@@ -2275,7 +2275,7 @@ exports[`scanStatus 1`] = `
 Array [
   Array [
     Object {
-      "TableName": "duo.dev.status",
+      "TableName": "duo.status.dev",
     },
   ],
 ]
