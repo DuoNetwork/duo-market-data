@@ -112,7 +112,7 @@ export class DynamoUtil {
 		const data = this.convertTradeToDynamo(trade, systemTimestamp);
 
 		const params = {
-			TableName: `${CST.DB_DUO}.${CST.DB_TRADES}.${this.live ? CST.DB_LIVE : CST.DB_DEV}`,
+			TableName: `${CST.DB_DUO}.${this.live ? CST.DB_LIVE : CST.DB_DEV}.${CST.DB_TRADES}`,
 			Item: {
 				[CST.DB_TX_SRC_DHM]: {
 					S: trade.source + '|' + moment.utc(trade.timestamp).format('YYYY-MM-DD-HH-mm')
@@ -127,7 +127,7 @@ export class DynamoUtil {
 
 	public async insertEventsData(events: IEvent[]) {
 		const systime = DynamoUtil.getUTCNowTimestamp();
-		const TableName = `${CST.DB_DUO}.${CST.DB_EVENTS}.${this.live ? CST.DB_LIVE : CST.DB_DEV}`;
+		const TableName = `${CST.DB_DUO}.${this.live ? CST.DB_LIVE : CST.DB_DEV}.${CST.DB_EVENTS}`;
 		// const putItem: any;
 
 		events.forEach(async event => {
@@ -152,7 +152,7 @@ export class DynamoUtil {
 
 	public insertHeartbeat(data: object = {}): Promise<void> {
 		return this.insertData({
-			TableName: `${CST.DB_DUO}.${CST.DB_STATUS}.${this.live ? CST.DB_LIVE : CST.DB_DEV}`,
+			TableName: `${CST.DB_DUO}.${this.live ? CST.DB_LIVE : CST.DB_DEV}.${CST.DB_STATUS}`,
 			Item: {
 				[CST.DB_ST_PROCESS]: {
 					S: this.process
@@ -165,7 +165,7 @@ export class DynamoUtil {
 
 	public insertStatusData(data: object): Promise<void> {
 		return this.insertData({
-			TableName: `${CST.DB_DUO}.${CST.DB_STATUS}.${this.live ? CST.DB_LIVE : CST.DB_DEV}`,
+			TableName: `${CST.DB_DUO}.${this.live ? CST.DB_LIVE : CST.DB_DEV}.${CST.DB_STATUS}`,
 			Item: {
 				[CST.DB_ST_PROCESS]: {
 					S: this.process
@@ -177,7 +177,7 @@ export class DynamoUtil {
 
 	public async readLastBlock(): Promise<number> {
 		const params = {
-			TableName: `${CST.DB_DUO}.${CST.DB_STATUS}.${this.live ? CST.DB_LIVE : CST.DB_DEV}`,
+			TableName: `${CST.DB_DUO}.${this.live ? CST.DB_LIVE : CST.DB_DEV}.${CST.DB_STATUS}`,
 			KeyConditionExpression: CST.DB_ST_PROCESS + ' = :' + CST.DB_ST_PROCESS,
 			ExpressionAttributeValues: {
 				[':' + CST.DB_ST_PROCESS]: { S: CST.DB_STATUS_EVENT_PUBLIC_OTHERS }
@@ -198,7 +198,7 @@ export class DynamoUtil {
 		let params: QueryInput;
 		if (period === 0) {
 			params = {
-				TableName: `${CST.DB_DUO}.${CST.DB_TRADES}.${this.live ? CST.DB_LIVE : CST.DB_DEV}`,
+				TableName: `${CST.DB_DUO}.${this.live ? CST.DB_LIVE : CST.DB_DEV}.${CST.DB_TRADES}`,
 				KeyConditionExpression: `${CST.DB_SRC_DHM} = :${CST.DB_SRC_DHM}`,
 				ExpressionAttributeValues: {
 					[':' + CST.DB_SRC_DHM]: {
@@ -231,9 +231,9 @@ export class DynamoUtil {
 			else throw new Error('invalid period');
 
 			params = {
-				TableName: `${CST.DB_DUO}.${CST.DB_PRICES}.${period}.${
+				TableName: `${CST.DB_DUO}.${
 					this.live ? CST.DB_LIVE : CST.DB_DEV
-				}`,
+				}.${CST.DB_PRICES}.${period}`,
 				KeyConditionExpression: keyConditionExpression,
 				ExpressionAttributeValues: {
 					[':primaryValue']: primaryValue
@@ -333,9 +333,9 @@ export class DynamoUtil {
 		else throw new Error('invalid period');
 
 		return this.insertData({
-			TableName: `${CST.DB_DUO}.${CST.DB_PRICES}.${price.period}.${
+			TableName: `${CST.DB_DUO}.${
 				this.live ? CST.DB_LIVE : CST.DB_DEV
-			}`,
+			}.${CST.DB_PRICES}.${price.period}`,
 			Item: data
 		});
 	}
@@ -379,7 +379,7 @@ export class DynamoUtil {
 	public async getTrades(src: string, dateHourMinute: string, pair: string = '') {
 		let params: QueryInput;
 		params = {
-			TableName: `${CST.DB_DUO}.${CST.DB_TRADES}.${this.live ? CST.DB_LIVE : CST.DB_DEV}`,
+			TableName: `${CST.DB_DUO}.${this.live ? CST.DB_LIVE : CST.DB_DEV}.${CST.DB_TRADES}`,
 			KeyConditionExpression: `${CST.DB_SRC_DHM} = :${CST.DB_SRC_DHM}`,
 			ExpressionAttributeValues: {
 				[':' + CST.DB_SRC_DHM]: {
@@ -409,9 +409,9 @@ export class DynamoUtil {
 			allData.push(
 				...this.parseAcceptedPrice(
 					await this.queryData({
-						TableName: `${CST.DB_DUO}.${CST.DB_EVENTS}.${
+						TableName: `${CST.DB_DUO}.${
 							this.live ? CST.DB_LIVE : CST.DB_DEV
-						}`,
+						}.${CST.DB_EVENTS}`,
 						KeyConditionExpression: CST.DB_EV_KEY + ' = :' + CST.DB_EV_KEY,
 						ExpressionAttributeValues: {
 							[':' + CST.DB_EV_KEY]: {
@@ -448,9 +448,9 @@ export class DynamoUtil {
 			allData.push(
 				...this.parseTotalSupply(
 					await this.queryData({
-						TableName: `${CST.DB_DUO}.${CST.DB_EVENTS}.${
+						TableName: `${CST.DB_DUO}.${
 							this.live ? CST.DB_LIVE : CST.DB_DEV
-						}`,
+						}.${CST.DB_EVENTS}`,
 						KeyConditionExpression: CST.DB_EV_KEY + ' = :' + CST.DB_EV_KEY,
 						ExpressionAttributeValues: {
 							[':' + CST.DB_EV_KEY]: {
@@ -495,9 +495,9 @@ export class DynamoUtil {
 			allData.push(
 				...this.parseConversion(
 					await this.queryData({
-						TableName: `${CST.DB_DUO}.${CST.DB_EVENTS}.${
+						TableName: `${CST.DB_DUO}.${
 							this.live ? CST.DB_LIVE : CST.DB_DEV
-						}`,
+						}.${CST.DB_EVENTS}`,
 						KeyConditionExpression: CST.DB_EV_KEY + ' = :' + CST.DB_EV_KEY,
 						ExpressionAttributeValues: {
 							[':' + CST.DB_EV_KEY]: { S: ek }
@@ -529,7 +529,7 @@ export class DynamoUtil {
 	public async scanStatus() {
 		return this.parseStatus(
 			await this.scanData({
-				TableName: `${CST.DB_DUO}.${CST.DB_STATUS}.${this.live ? CST.DB_LIVE : CST.DB_DEV}`
+				TableName: `${CST.DB_DUO}.${this.live ? CST.DB_LIVE : CST.DB_DEV}.${CST.DB_STATUS}`
 			})
 		);
 	}
@@ -576,7 +576,7 @@ export class DynamoUtil {
 		fee: number
 	) {
 		const params = {
-			TableName: `${CST.DB_DUO}.${CST.DB_UI_EVENTS}.${this.live ? CST.DB_LIVE : CST.DB_DEV}`,
+			TableName: `${CST.DB_DUO}.${this.live ? CST.DB_LIVE : CST.DB_DEV}.${CST.DB_UI_EVENTS}`,
 			Item: {
 				[CST.DB_EV_KEY]: {
 					S:
@@ -608,9 +608,9 @@ export class DynamoUtil {
 			allData.push(
 				...this.parseUIConversion(
 					await this.queryData({
-						TableName: `${CST.DB_DUO}.${CST.DB_UI_EVENTS}.${
+						TableName: `${CST.DB_DUO}.${
 							this.live ? CST.DB_LIVE : CST.DB_DEV
-						}`,
+						}.${CST.DB_UI_EVENTS}`,
 						KeyConditionExpression: CST.DB_EV_KEY + ' = :' + CST.DB_EV_KEY,
 						ExpressionAttributeValues: {
 							[':' + CST.DB_EV_KEY]: { S: ek }
@@ -643,7 +643,7 @@ export class DynamoUtil {
 
 	public deleteUIConversionEvent(account: string, conversion: IConversion): Promise<void> {
 		return this.deleteData({
-			TableName: `${CST.DB_DUO}.${CST.DB_UI_EVENTS}.${this.live ? CST.DB_LIVE : CST.DB_DEV}`,
+			TableName: `${CST.DB_DUO}.${this.live ? CST.DB_LIVE : CST.DB_DEV}.${CST.DB_UI_EVENTS}`,
 			Key: {
 				[CST.DB_EV_KEY]: {
 					S: conversion.contractAddress + '|' + conversion.type + '|' + account
