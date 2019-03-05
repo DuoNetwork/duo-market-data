@@ -423,6 +423,180 @@ Object {
 }
 `;
 
+exports[`convertEventToDynamo, no logStatus 1`] = `
+Object {
+  "blockHash": Object {
+    "S": "blockHash",
+  },
+  "blockNumber": Object {
+    "N": "123",
+  },
+  "eventKey": Object {
+    "S": "contractAddress|type|1970-01-15",
+  },
+  "logStatus": Object {
+    "S": "mined",
+  },
+  "systime": Object {
+    "N": "9876543210",
+  },
+  "test": Object {
+    "S": "test",
+  },
+  "timestampId": Object {
+    "S": "1234567890|id",
+  },
+  "transactionHash": Object {
+    "S": "txHash",
+  },
+}
+`;
+
+exports[`convertEventToDynamo, no logStatus 2`] = `
+Object {
+  "blockHash": Object {
+    "S": "blockHash",
+  },
+  "blockNumber": Object {
+    "N": "123",
+  },
+  "eventKey": Object {
+    "S": "0x0f80F055c7482b919183EcD06e0dd5FD7991D309|CommitPrice|1970-01-15",
+  },
+  "logStatus": Object {
+    "S": "mined",
+  },
+  "sender": Object {
+    "S": "0x00D8d0660b243452fC2f996A892D3083A903576F",
+  },
+  "systime": Object {
+    "N": "9876543210",
+  },
+  "timestampId": Object {
+    "S": "1234567890|id",
+  },
+  "transactionHash": Object {
+    "S": "txHash",
+  },
+}
+`;
+
+exports[`convertEventToDynamo, no logStatus 3`] = `
+Object {
+  "blockHash": Object {
+    "S": "blockHash",
+  },
+  "blockNumber": Object {
+    "N": "123",
+  },
+  "eventKey": Object {
+    "S": "0x0f80F055c7482b919183EcD06e0dd5FD7991D309|Create|1970-01-15|0x00D8d0660b243452fC2f996A892D3083A903576F",
+  },
+  "logStatus": Object {
+    "S": "mined",
+  },
+  "sender": Object {
+    "S": "0x00D8d0660b243452fC2f996A892D3083A903576F",
+  },
+  "systime": Object {
+    "N": "9876543210",
+  },
+  "timestampId": Object {
+    "S": "1234567890|id",
+  },
+  "transactionHash": Object {
+    "S": "txHash",
+  },
+}
+`;
+
+exports[`convertEventToDynamo, no logStatus 4`] = `
+Object {
+  "blockHash": Object {
+    "S": "blockHash",
+  },
+  "blockNumber": Object {
+    "N": "123",
+  },
+  "eventKey": Object {
+    "S": "0x0f80F055c7482b919183EcD06e0dd5FD7991D309|Transfer|1970-01-15|0x00D8d0660b243452fC2f996A892D3083A903576F",
+  },
+  "from": Object {
+    "S": "0x00D8d0660b243452fC2f996A892D3083A903576F",
+  },
+  "logStatus": Object {
+    "S": "mined",
+  },
+  "systime": Object {
+    "N": "9876543210",
+  },
+  "timestampId": Object {
+    "S": "1234567890|id",
+  },
+  "transactionHash": Object {
+    "S": "txHash",
+  },
+}
+`;
+
+exports[`convertEventToDynamo, no logStatus 5`] = `
+Object {
+  "blockHash": Object {
+    "S": "blockHash",
+  },
+  "blockNumber": Object {
+    "N": "123",
+  },
+  "eventKey": Object {
+    "S": "0x0f80F055c7482b919183EcD06e0dd5FD7991D309|Approval|1970-01-15|0x00D8d0660b243452fC2f996A892D3083A903576F",
+  },
+  "logStatus": Object {
+    "S": "mined",
+  },
+  "systime": Object {
+    "N": "9876543210",
+  },
+  "timestampId": Object {
+    "S": "1234567890|id",
+  },
+  "tokenOwner": Object {
+    "S": "0x00D8d0660b243452fC2f996A892D3083A903576F",
+  },
+  "transactionHash": Object {
+    "S": "txHash",
+  },
+}
+`;
+
+exports[`convertEventToDynamo, no logStatus 6`] = `
+Object {
+  "blockHash": Object {
+    "S": "blockHash",
+  },
+  "blockNumber": Object {
+    "N": "123",
+  },
+  "eventKey": Object {
+    "S": "0x0f80F055c7482b919183EcD06e0dd5FD7991D309|TotalSupply|1970-01-06",
+  },
+  "logStatus": Object {
+    "S": "mined",
+  },
+  "sender": Object {
+    "S": "0x00D8d0660b243452fC2f996A892D3083A903576F",
+  },
+  "systime": Object {
+    "N": "9876543210",
+  },
+  "timestampId": Object {
+    "S": "1234567890|id",
+  },
+  "transactionHash": Object {
+    "S": "txHash",
+  },
+}
+`;
+
 exports[`convertTradeToDynamo 1`] = `
 Object {
   "amount": Object {
@@ -972,7 +1146,7 @@ Array [
           "S": "contractAddress|type|1970-01-15",
         },
         "logStatus": Object {
-          "S": "logStatus",
+          "S": "mined",
         },
         "systime": Object {
           "N": "1234567890",
@@ -1003,7 +1177,7 @@ Array [
           "S": "0x0f80F055c7482b919183EcD06e0dd5FD7991D309|CommitPrice|1970-01-15",
         },
         "logStatus": Object {
-          "S": "logStatus",
+          "S": "mined",
         },
         "sender": Object {
           "S": "0x00D8d0660b243452fC2f996A892D3083A903576F",
@@ -1034,7 +1208,7 @@ Array [
           "S": "0x0f80F055c7482b919183EcD06e0dd5FD7991D309|Create|1970-01-15|0x00D8d0660b243452fC2f996A892D3083A903576F",
         },
         "logStatus": Object {
-          "S": "logStatus",
+          "S": "mined",
         },
         "sender": Object {
           "S": "0x00D8d0660b243452fC2f996A892D3083A903576F",
@@ -1068,7 +1242,7 @@ Array [
           "S": "0x00D8d0660b243452fC2f996A892D3083A903576F",
         },
         "logStatus": Object {
-          "S": "logStatus",
+          "S": "mined",
         },
         "systime": Object {
           "N": "1234567890",
@@ -1096,7 +1270,7 @@ Array [
           "S": "0x0f80F055c7482b919183EcD06e0dd5FD7991D309|Approval|1970-01-15|0x00D8d0660b243452fC2f996A892D3083A903576F",
         },
         "logStatus": Object {
-          "S": "logStatus",
+          "S": "mined",
         },
         "systime": Object {
           "N": "1234567890",
@@ -1127,7 +1301,7 @@ Array [
           "S": "0x0f80F055c7482b919183EcD06e0dd5FD7991D309|TotalSupply|1970-01-06",
         },
         "logStatus": Object {
-          "S": "logStatus",
+          "S": "mined",
         },
         "sender": Object {
           "S": "0x00D8d0660b243452fC2f996A892D3083A903576F",
@@ -1163,7 +1337,7 @@ Array [
           "S": "contractAddress|type|1970-01-15",
         },
         "logStatus": Object {
-          "S": "logStatus",
+          "S": "mined",
         },
         "systime": Object {
           "N": "1234567890",
@@ -1194,7 +1368,7 @@ Array [
           "S": "0x0f80F055c7482b919183EcD06e0dd5FD7991D309|CommitPrice|1970-01-15",
         },
         "logStatus": Object {
-          "S": "logStatus",
+          "S": "mined",
         },
         "sender": Object {
           "S": "0x00D8d0660b243452fC2f996A892D3083A903576F",
@@ -1225,7 +1399,7 @@ Array [
           "S": "0x0f80F055c7482b919183EcD06e0dd5FD7991D309|Create|1970-01-15|0x00D8d0660b243452fC2f996A892D3083A903576F",
         },
         "logStatus": Object {
-          "S": "logStatus",
+          "S": "mined",
         },
         "sender": Object {
           "S": "0x00D8d0660b243452fC2f996A892D3083A903576F",
@@ -1259,7 +1433,7 @@ Array [
           "S": "0x00D8d0660b243452fC2f996A892D3083A903576F",
         },
         "logStatus": Object {
-          "S": "logStatus",
+          "S": "mined",
         },
         "systime": Object {
           "N": "1234567890",
@@ -1287,7 +1461,7 @@ Array [
           "S": "0x0f80F055c7482b919183EcD06e0dd5FD7991D309|Approval|1970-01-15|0x00D8d0660b243452fC2f996A892D3083A903576F",
         },
         "logStatus": Object {
-          "S": "logStatus",
+          "S": "mined",
         },
         "systime": Object {
           "N": "1234567890",
@@ -1318,7 +1492,7 @@ Array [
           "S": "0x0f80F055c7482b919183EcD06e0dd5FD7991D309|TotalSupply|1970-01-06",
         },
         "logStatus": Object {
-          "S": "logStatus",
+          "S": "mined",
         },
         "sender": Object {
           "S": "0x00D8d0660b243452fC2f996A892D3083A903576F",

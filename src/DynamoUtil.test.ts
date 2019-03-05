@@ -923,6 +923,12 @@ test('convertEventToDynamo', () =>
 		expect(dynamoUtil.convertEventToDynamo(event, 9876543210)).toMatchSnapshot()
 	));
 
+test('convertEventToDynamo, no logStatus', () =>
+	events.forEach(event => {
+		event.logStatus = '';
+		expect(dynamoUtil.convertEventToDynamo(event, 9876543210)).toMatchSnapshot();
+	}));
+
 test('insertTradeData', async () => {
 	dynamoUtil.insertData = jest.fn(() => Promise.resolve());
 	await dynamoUtil.insertTradeData(trade, true);
@@ -948,9 +954,7 @@ test('insertTradeData insertStatus', async () => {
 test('insertEventsData', async () => {
 	dynamoUtil.insertData = jest.fn(() => Promise.resolve());
 	await dynamoUtil.insertEventsData(events);
-	expect((dynamoUtil.insertData as jest.Mock).mock.calls.length).toBe(
-		events.length
-	);
+	expect((dynamoUtil.insertData as jest.Mock).mock.calls.length).toBe(events.length);
 	expect((dynamoUtil.insertData as jest.Mock).mock.calls).toMatchSnapshot();
 });
 
@@ -958,9 +962,7 @@ test('insertEventsData live', async () => {
 	dynamoUtil.insertData = jest.fn(() => Promise.resolve());
 	dynamoUtil.live = true;
 	await dynamoUtil.insertEventsData(events);
-	expect((dynamoUtil.insertData as jest.Mock).mock.calls.length).toBe(
-		events.length
-	);
+	expect((dynamoUtil.insertData as jest.Mock).mock.calls.length).toBe(events.length);
 	expect((dynamoUtil.insertData as jest.Mock).mock.calls).toMatchSnapshot();
 });
 
@@ -1200,7 +1202,7 @@ test('getSingleKeyPeriodPrices, period = 60', async () => {
 });
 
 test('getSingleKeyPeriodPrices, period > 60', async () => {
-	dynamoUtil.getPriceKeyField = jest.fn(() => 'key'  as any);
+	dynamoUtil.getPriceKeyField = jest.fn(() => 'key' as any);
 	dynamoUtil.queryData = jest.fn(() =>
 		Promise.resolve({
 			Items: [{}]
@@ -1559,9 +1561,7 @@ test('getPrices', async () => {
 	await dynamoUtil.getPrices('anySrc', 1, start, end);
 	await dynamoUtil.getPrices('anySrc', 1, start, end, 'ETH|USD');
 	await dynamoUtil.getPrices('anySrc', 60, start, end);
-	expect(
-		(dynamoUtil.getSingleKeyPeriodPrices as jest.Mock).mock.calls
-	).toMatchSnapshot();
+	expect((dynamoUtil.getSingleKeyPeriodPrices as jest.Mock).mock.calls).toMatchSnapshot();
 });
 
 const price = {
