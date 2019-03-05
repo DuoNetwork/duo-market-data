@@ -98,7 +98,7 @@ export class DynamoUtil {
 			[CST.DB_EV_BLOCK_HASH]: { S: event.blockHash },
 			[CST.DB_EV_BLOCK_NO]: { N: event.blockNumber + '' },
 			[CST.DB_EV_TX_HASH]: { S: event.transactionHash },
-			[CST.DB_EV_LOG_STATUS]: { S: event.logStatus }
+			[CST.DB_EV_LOG_STATUS]: { S: event.logStatus || 'mined'}
 		};
 		for (const key in event.parameters)
 			dbInput[key] = {
