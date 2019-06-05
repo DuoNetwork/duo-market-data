@@ -14,6 +14,71 @@ jest.mock('aws-sdk/global', () => ({
 	}
 }));
 
+const staking = {
+	Items: [
+		{
+			timestampId: { S: '1559291088000|log_a91f5e3e' },
+			blockNumber: { N: '7866205' },
+			amtInWei: { S: '300000000000000000000' },
+			logStatus: { S: 'mined' },
+			systime: { N: '1559291333896' },
+			eventKey: { S: '0x395cca6DeC865eb1F633D84C77220c40f26395bf|AddStake|2019-05-31' },
+			from: { S: '0x70c0e27d1EFfa135266C35668eA93ED5910F5655' },
+			oracle: { S: '0xE81Bf853ab451E52ed926797eDe98e4Ac6E7C562' },
+			blockHash: { S: '0x07fccf06804512c6a24a92236c8c3c8ceeecbc60fbaaece2d1ef1f2e69cfd84f' },
+			transactionHash: {
+				S: '0x71a9bb2ff5f27f3bcbd884b04223c87ccd7c0a206bd4627445b5ed61cc3e200a'
+			}
+		},
+		{
+			timestampId: { S: '1559291102000|log_dc68fc58' },
+			blockNumber: { N: '7866206' },
+			amtInWei: { S: '300000000000000000000' },
+			logStatus: { S: 'mined' },
+			systime: { N: '1559291333896' },
+			eventKey: { S: '0x395cca6DeC865eb1F633D84C77220c40f26395bf|AddStake|2019-05-31' },
+			from: { S: '0xd9cCecFC05C8Ed27Ef6256594b4d8edd57135a6c' },
+			oracle: { S: '0xE81Bf853ab451E52ed926797eDe98e4Ac6E7C562' },
+			blockHash: { S: '0x20c5b42026961a63a445c64bcc17db2e57cb716ffc9cd78a68c09d65af4eab08' },
+			transactionHash: {
+				S: '0xd274b44d3a011db1d4e8049f04db3f41228b3f3675d831e45d12d73847526b76'
+			}
+		},
+		{
+			timestampId: { S: '1559291442000|log_24fffb55' },
+			blockNumber: { N: '7866229' },
+			amtInWei: { S: '300000000000000000000' },
+			logStatus: { S: 'mined' },
+			systime: { N: '1559291634816' },
+			eventKey:
+			{ S: '0x395cca6DeC865eb1F633D84C77220c40f26395bf|Unstake|2019-05-31' },
+			from: { S: '0xd9cCecFC05C8Ed27Ef6256594b4d8edd57135a6c' },
+			oracle: { S: '0xE81Bf853ab451E52ed926797eDe98e4Ac6E7C562' },
+			blockHash:
+			{ S: '0x06eb0a2dfb062d94add86c6f3930a1f0a1693caedc3c47699dad9dceb7080b5d' },
+			transactionHash:
+			{ S: '0xb3de73599c2dc20a0cd6c34fa190bf7ca147102711808f69406f78d90c7ea76b' }
+		},
+		{
+			timestampId: { S: '1559291757000|log_bf2397ac' },
+			blockNumber: { N: '7866253' },
+			amtInWei: { S: '300000000000000000000' },
+			logStatus: { S: 'mined' },
+			systime: { N: '1559291936105' },
+			eventKey:
+			{ S: '0x395cca6DeC865eb1F633D84C77220c40f26395bf|Unstake|2019-05-31' },
+			from: { S: '0x7005f3e9ed4dF1B0F5d446d108D69685a0b18D22' },
+			oracle: { S: '0x8cff57292AB098728F26F7D2e2BdFc6b1729DDDB' },
+			blockHash:
+			{ S: '0xbfd6f50264fb49d2ba259d8f1853dedb0769d57626f77a50ece6b9b7a9366415' },
+			transactionHash:
+			{ S: '0x2afff3174c86c4cb3e7e74748ca086380f9d456f132ab91cd5ff3746862052e7' }
+		}
+	],
+	Count: 1,
+	ScannedCount: 1
+};
+
 const conversion = {
 	Items: [
 		{
@@ -1431,6 +1496,28 @@ test('queryConversionEvent, dev', async () => {
 });
 
 test('parseConversion', () => expect(dynamoUtil.parseConversion(conversion)).toMatchSnapshot());
+
+test('queryStakingEvent', async () => {
+	dynamoUtil.live = true;
+	dynamoUtil.queryData = jest.fn(() => Promise.resolve({}));
+	await dynamoUtil.queryStakingEvent(
+		WrapperConstants.DUMMY_ADDR,
+		['date1', 'date2']
+	);
+	expect((dynamoUtil.queryData as jest.Mock).mock.calls).toMatchSnapshot();
+});
+
+test('queryStakingEvent, dev', async () => {
+	dynamoUtil.live = false;
+	dynamoUtil.queryData = jest.fn(() => Promise.resolve({}));
+	await dynamoUtil.queryStakingEvent(
+		WrapperConstants.DUMMY_ADDR,
+		['date1', 'date2']
+	);
+	expect((dynamoUtil.queryData as jest.Mock).mock.calls).toMatchSnapshot();
+});
+
+test('parseStaking', () => expect(dynamoUtil.parseStaking(staking)).toMatchSnapshot());
 
 test('queryTotalSupplyEvent, live', async () => {
 	dynamoUtil.live = true;
