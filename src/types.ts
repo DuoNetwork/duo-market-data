@@ -53,6 +53,13 @@ export interface IConversion extends IBaseEvent {
 	reverted?: boolean;
 }
 
+export interface IStake extends IBaseEvent {
+	from: string;
+	type: string;
+	oracle: string;
+	amount: number;
+}
+
 export interface IStatus {
 	process: string;
 	timestamp: number;

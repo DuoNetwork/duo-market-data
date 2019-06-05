@@ -16,6 +16,7 @@ import {
 	IConversion,
 	IPrice,
 	IPriceStatus,
+	IStake,
 	IStatus,
 	ITotalSupply,
 	ITrade
@@ -98,7 +99,7 @@ export class DynamoUtil {
 			[CST.DB_EV_BLOCK_HASH]: { S: event.blockHash },
 			[CST.DB_EV_BLOCK_NO]: { N: event.blockNumber + '' },
 			[CST.DB_EV_TX_HASH]: { S: event.transactionHash },
-			[CST.DB_EV_LOG_STATUS]: { S: event.logStatus || 'mined'}
+			[CST.DB_EV_LOG_STATUS]: { S: event.logStatus || 'mined' }
 		};
 		for (const key in event.parameters)
 			dbInput[key] = {
@@ -537,6 +538,53 @@ export class DynamoUtil {
 				tokenA: Web3Wrapper.fromWei(c[CST.DB_EV_TOKEN_A].S || ''),
 				tokenB: Web3Wrapper.fromWei(c[CST.DB_EV_TOKEN_B].S || ''),
 				fee: Web3Wrapper.fromWei(c[CST.DB_EV_FEE].S || '')
+			};
+		});
+	}
+
+	public async queryStakingEvent(contractAddress: string, dates: string[]) {
+		console.log('start querying data');
+		const eventKeys: string[] = [];
+		dates.forEach(date =>
+			eventKeys.push(
+				...[WrapperConstants.EVENT_ADD_STAKE, WrapperConstants.EVENT_UN_STAKE].map(
+					ev => contractAddress + '|' + ev + '|' + date
+				)
+			)
+		);
+		console.log(eventKeys);
+		const allData: IStake[] = [];
+		for (const ek of eventKeys)
+			allData.push(
+				...this.parseStaking(
+					await this.queryData({
+						TableName: this.live
+							? `${CST.DB_DUO}.${CST.DB_LIVE}.${CST.DB_EVENTS}`
+							: `${CST.DB_DUO}.${CST.DB_EVENTS}.${CST.DB_DEV}`,
+						KeyConditionExpression: CST.DB_EV_KEY + ' = :' + CST.DB_EV_KEY,
+						ExpressionAttributeValues: {
+							[':' + CST.DB_EV_KEY]: { S: ek }
+						}
+					})
+				)
+			);
+		return allData;
+	}
+
+	public parseStaking(staking: QueryOutput): IStake[] {
+		if (!staking.Items || !staking.Items.length) return [];
+		console.log(staking.Items);
+		return staking.Items.map(c => {
+			const [contractAddress, type] = (c[CST.DB_EV_KEY].S || '').split('|');
+			return {
+				contractAddress: contractAddress,
+				transactionHash: c[CST.DB_EV_TX_HASH].S || '',
+				blockNumber: Number(c[CST.DB_EV_BLOCK_NO].N),
+				type: type || '',
+				timestamp: Number((c[CST.DB_EV_TIMESTAMP_ID].S || '').split('|')[0]),
+				from: c[CST.DB_EV_FROM].S || '',
+				oracle: c[CST.DB_EV_ORACLE].S || '',
+				amount: Web3Wrapper.fromWei(c[CST.DB_EV_AMT].S || '')
 			};
 		});
 	}

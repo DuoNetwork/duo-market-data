@@ -1907,6 +1907,51 @@ Array [
 ]
 `;
 
+exports[`parseStaking 1`] = `
+Array [
+  Object {
+    "amount": 300,
+    "blockNumber": 7866205,
+    "contractAddress": "0x395cca6DeC865eb1F633D84C77220c40f26395bf",
+    "from": "0x70c0e27d1EFfa135266C35668eA93ED5910F5655",
+    "oracle": "0xE81Bf853ab451E52ed926797eDe98e4Ac6E7C562",
+    "timestamp": 1559291088000,
+    "transactionHash": "0x71a9bb2ff5f27f3bcbd884b04223c87ccd7c0a206bd4627445b5ed61cc3e200a",
+    "type": "AddStake",
+  },
+  Object {
+    "amount": 300,
+    "blockNumber": 7866206,
+    "contractAddress": "0x395cca6DeC865eb1F633D84C77220c40f26395bf",
+    "from": "0xd9cCecFC05C8Ed27Ef6256594b4d8edd57135a6c",
+    "oracle": "0xE81Bf853ab451E52ed926797eDe98e4Ac6E7C562",
+    "timestamp": 1559291102000,
+    "transactionHash": "0xd274b44d3a011db1d4e8049f04db3f41228b3f3675d831e45d12d73847526b76",
+    "type": "AddStake",
+  },
+  Object {
+    "amount": 300,
+    "blockNumber": 7866229,
+    "contractAddress": "0x395cca6DeC865eb1F633D84C77220c40f26395bf",
+    "from": "0xd9cCecFC05C8Ed27Ef6256594b4d8edd57135a6c",
+    "oracle": "0xE81Bf853ab451E52ed926797eDe98e4Ac6E7C562",
+    "timestamp": 1559291442000,
+    "transactionHash": "0xb3de73599c2dc20a0cd6c34fa190bf7ca147102711808f69406f78d90c7ea76b",
+    "type": "Unstake",
+  },
+  Object {
+    "amount": 300,
+    "blockNumber": 7866253,
+    "contractAddress": "0x395cca6DeC865eb1F633D84C77220c40f26395bf",
+    "from": "0x7005f3e9ed4dF1B0F5d446d108D69685a0b18D22",
+    "oracle": "0x8cff57292AB098728F26F7D2e2BdFc6b1729DDDB",
+    "timestamp": 1559291757000,
+    "transactionHash": "0x2afff3174c86c4cb3e7e74748ca086380f9d456f132ab91cd5ff3746862052e7",
+    "type": "Unstake",
+  },
+]
+`;
+
 exports[`parseStatus 1`] = `
 Array [
   Object {
@@ -2298,6 +2343,104 @@ Array [
 `;
 
 exports[`queryData error 1`] = `Object {}`;
+
+exports[`queryStakingEvent 1`] = `
+Array [
+  Array [
+    Object {
+      "ExpressionAttributeValues": Object {
+        ":eventKey": Object {
+          "S": "0x0|AddStake|date1",
+        },
+      },
+      "KeyConditionExpression": "eventKey = :eventKey",
+      "TableName": "duo.live.events",
+    },
+  ],
+  Array [
+    Object {
+      "ExpressionAttributeValues": Object {
+        ":eventKey": Object {
+          "S": "0x0|Unstake|date1",
+        },
+      },
+      "KeyConditionExpression": "eventKey = :eventKey",
+      "TableName": "duo.live.events",
+    },
+  ],
+  Array [
+    Object {
+      "ExpressionAttributeValues": Object {
+        ":eventKey": Object {
+          "S": "0x0|AddStake|date2",
+        },
+      },
+      "KeyConditionExpression": "eventKey = :eventKey",
+      "TableName": "duo.live.events",
+    },
+  ],
+  Array [
+    Object {
+      "ExpressionAttributeValues": Object {
+        ":eventKey": Object {
+          "S": "0x0|Unstake|date2",
+        },
+      },
+      "KeyConditionExpression": "eventKey = :eventKey",
+      "TableName": "duo.live.events",
+    },
+  ],
+]
+`;
+
+exports[`queryStakingEvent, dev 1`] = `
+Array [
+  Array [
+    Object {
+      "ExpressionAttributeValues": Object {
+        ":eventKey": Object {
+          "S": "0x0|AddStake|date1",
+        },
+      },
+      "KeyConditionExpression": "eventKey = :eventKey",
+      "TableName": "duo.events.dev",
+    },
+  ],
+  Array [
+    Object {
+      "ExpressionAttributeValues": Object {
+        ":eventKey": Object {
+          "S": "0x0|Unstake|date1",
+        },
+      },
+      "KeyConditionExpression": "eventKey = :eventKey",
+      "TableName": "duo.events.dev",
+    },
+  ],
+  Array [
+    Object {
+      "ExpressionAttributeValues": Object {
+        ":eventKey": Object {
+          "S": "0x0|AddStake|date2",
+        },
+      },
+      "KeyConditionExpression": "eventKey = :eventKey",
+      "TableName": "duo.events.dev",
+    },
+  ],
+  Array [
+    Object {
+      "ExpressionAttributeValues": Object {
+        ":eventKey": Object {
+          "S": "0x0|Unstake|date2",
+        },
+      },
+      "KeyConditionExpression": "eventKey = :eventKey",
+      "TableName": "duo.events.dev",
+    },
+  ],
+]
+`;
 
 exports[`queryTotalSupplyEvent 1`] = `
 Array [

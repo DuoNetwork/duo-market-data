@@ -66,6 +66,9 @@ export const DB_EV_UI_ETH = 'eth';
 export const DB_EV_UI_TOKEN_A = 'tokenA';
 export const DB_EV_UI_TOKEN_B = 'tokenB';
 export const DB_EV_UI_FEE = 'fee';
+export const DB_EV_FROM = 'from';
+export const DB_EV_ORACLE = 'oracle';
+export const DB_EV_AMT = 'amtInWei';
 export const DB_STATUS_EVENT_PUBLIC_OTHERS = 'EVENT_AWS_PUBLIC_OTHERS';
 
 export const DB_PRICES_PRIMARY_KEY_RESOLUTION: {
