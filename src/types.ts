@@ -36,6 +36,7 @@ export interface IAcceptedPrice extends IBaseEvent {
 	price: number;
 	navA: number;
 	navB: number;
+	sender: string;
 }
 
 export interface ITotalSupply extends IBaseEvent {
