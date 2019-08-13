@@ -1,6 +1,6 @@
 {
 	"name": "@finbook/duo-market-data",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"description": "DUO Market Data",
 	"author": "FinBook Pte Ltd",
 	"main": "dist/index.js",
@@ -9,7 +9,7 @@
 		"test": "jest",
 		"prebuild": "rimraf dist",
 		"build": "tsc",
-		"postbuild": "npm pack",
+		"prepare": "npm run build",
 		"tslint": "tslint -c tslint.json -p tsconfig.json src/**/*.ts{,x} --fix"
 	},
 	"jest": {
@@ -30,19 +30,19 @@
 		]
 	},
 	"devDependencies": {
-		"@babel/polyfill": "^7.2.5",
-		"@types/jest": "^24.0.6",
-		"coveralls": "^3.0.2",
-		"jest": "^24.1.0",
+		"@babel/polyfill": "^7.4.4",
+		"@types/jest": "^24.0.17",
+		"coveralls": "^3.0.6",
+		"jest": "^24.8.0",
 		"pre-commit": "^1.2.2",
 		"rimraf": "^2.6.3",
-		"ts-jest": "^24.0.0",
-		"tslint": "^5.12.1",
-		"typescript": "^3.1.6"
+		"ts-jest": "^24.0.2",
+		"tslint": "^5.18.0",
+		"typescript": "^3.5.3"
 	},
 	"dependencies": {
-		"@finbook/duo-contract-wrapper": "^1.4.2",
-		"aws-sdk": "^2.407.0",
+		"@finbook/duo-contract-wrapper": "^1.5.0",
+		"aws-sdk": "^2.508.0",
 		"moment": "^2.24.0"
 	},
 	"repository": {
