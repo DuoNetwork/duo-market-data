@@ -455,7 +455,7 @@ export class DynamoUtil {
 			navA: p[CST.DB_EV_NAV_A] ? Web3Wrapper.fromWei(p[CST.DB_EV_NAV_A].S || '') : 0,
 			navB: p[CST.DB_EV_NAV_B] ? Web3Wrapper.fromWei(p[CST.DB_EV_NAV_B].S || '') : 0,
 			timestamp: Math.round(Number(p[CST.DB_EV_TS].S) / 3600) * 3600000,
-			sender: p[CST.DB_EN_SENDER].S || ''
+			sender: p[CST.DB_EN_SENDER] ? p[CST.DB_EN_SENDER].S || '' : ''
 		}));
 	}
 

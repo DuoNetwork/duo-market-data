@@ -1453,7 +1453,6 @@ test('parseAcceptedPrices, invalid type', () =>
 			Items: [
 				{
 					timeInSecond: { S: '1529625600' },
-					sender: { S: '0x00476E55e02673B0E4D2B474071014D5a366Ed4E' },
 					eventKey: {
 						S: ''
 					},

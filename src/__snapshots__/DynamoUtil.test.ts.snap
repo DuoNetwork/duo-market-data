@@ -1880,7 +1880,7 @@ Array [
     "navA": 0,
     "navB": 0,
     "price": 0,
-    "sender": "0x00476E55e02673B0E4D2B474071014D5a366Ed4E",
+    "sender": "",
     "timestamp": 1529625600000,
     "transactionHash": "",
   },
