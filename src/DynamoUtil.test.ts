@@ -1769,14 +1769,14 @@ const addressInfo = {
 	updatedAt: { S: '1560000000000' }
 };
 
-test('getAddressInfo', async () => {
+test('getInlineWarrantHistoryInfoByAccount', async () => {
 	dynamoUtil.queryData = jest.fn(() =>
 		Promise.resolve({
 			Count: 1,
 			Items: [addressInfo as any]
 		})
 	);
-	expect(await dynamoUtil.getAddressInfo(WrapperConstants.DUMMY_ADDR)).toMatchSnapshot();
+	expect(await dynamoUtil.getInlineWarrantHistoryInfoByAccount(WrapperConstants.DUMMY_ADDR)).toMatchSnapshot();
 });
 
 const currentRoundInfo = {
@@ -1786,7 +1786,7 @@ const currentRoundInfo = {
 	updateAt: { S: '1500000000000' }
 };
 
-test('getCurrentRoundInfo', async () => {
+test('getInlineWarrantCurrentInfoByAccount', async () => {
 	DynamoUtil.getUTCNowDateString = jest.fn(() => moment.utc(1500000000000).format('YYYY-MM-DD'));
 	dynamoUtil.queryData = jest.fn(() =>
 		Promise.resolve({
@@ -1794,7 +1794,7 @@ test('getCurrentRoundInfo', async () => {
 			Items: [currentRoundInfo as any]
 		})
 	);
-	expect(await dynamoUtil.getCurrentRoundInfo(WrapperConstants.DUMMY_ADDR)).toMatchSnapshot();
+	expect(await dynamoUtil.getInlineWarrantCurrentInfoByAccount(WrapperConstants.DUMMY_ADDR)).toMatchSnapshot();
 });
 
 const stakingEntry = {
@@ -1803,9 +1803,9 @@ const stakingEntry = {
 	txHash: '0x00ABC',
 	updatedAt: '1500000000000'
 };
-test('insertStakingEntry', async () => {
+test('insertStakingUIEvent', async () => {
 	dynamoUtil.insertData = jest.fn(() => Promise.resolve());
-	await dynamoUtil.insertStakingEntry(stakingEntry);
+	await dynamoUtil.insertStakingUIEvent(stakingEntry);
 	expect((dynamoUtil.insertData as jest.Mock).mock.calls).toMatchSnapshot();
 });
 
@@ -1824,7 +1824,7 @@ const boundaries2 = {
 	updatedAt: { S: '1500000000000' }
 };
 
-test('getBoundaries', async () => {
+test('getInlineWarrantBoundaries', async () => {
 	DynamoUtil.getLocalTodayString = jest.fn(() => '2019-01-01');
 	dynamoUtil.queryData = jest.fn(() =>
 		Promise.resolve({
@@ -1832,7 +1832,7 @@ test('getBoundaries', async () => {
 			Items: [boundaries as any, boundaries2 as any]
 		})
 	);
-	expect(await dynamoUtil.getBoundaries()).toMatchSnapshot();
+	expect(await dynamoUtil.getInlineWarrantBoundaries()).toMatchSnapshot();
 });
 
 test('getUTCNowTimestamp', () => {

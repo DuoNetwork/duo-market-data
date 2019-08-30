@@ -721,7 +721,7 @@ export class DynamoUtil {
 		});
 	}
 
-	public async getAddressInfo(account: string) {
+	public async getInlineWarrantHistoryInfoByAccount(account: string) {
 		const params = {
 			TableName: this.live ? CST.WARRENTTABLE : CST.WARRENTTABLEKOVAN,
 			KeyConditionExpression: `${CST.DB_ADDRESS} = :${CST.DB_ADDRESS}`,
@@ -753,7 +753,7 @@ export class DynamoUtil {
 		} else return {};
 	}
 
-	public async getCurrentRoundInfo(account: string) {
+	public async getInlineWarrantCurrentInfoByAccount(account: string) {
 		const params = {
 			TableName: this.live
 				? `${CST.DB_DUO}.${CST.DB_LIVE}.${CST.DB_UI_EVENTS}`
@@ -784,7 +784,7 @@ export class DynamoUtil {
 		} else return [];
 	}
 
-	public async insertStakingEntry(item: IStakingEntry) {
+	public async insertStakingUIEvent(item: IStakingEntry) {
 		const data: AttributeMap = {
 			eventKey: { S: item.address.toLowerCase() },
 			amount: { S: item.amount },
@@ -801,7 +801,7 @@ export class DynamoUtil {
 		await this.insertData(params);
 	}
 
-	public async getBoundaries() {
+	public async getInlineWarrantBoundaries() {
 		const params = {
 			TableName: this.live ? CST.BOUNDARIESTABLE : CST.BOUNDARIESTABLEKOVAN,
 			KeyConditionExpression: `${CST.DB_TX_QTEBASE} = :${CST.DB_TX_QTEBASE}`,

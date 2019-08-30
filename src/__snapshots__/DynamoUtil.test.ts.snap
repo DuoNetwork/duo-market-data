@@ -667,7 +667,25 @@ Array [
 ]
 `;
 
-exports[`getAddressInfo 1`] = `
+exports[`getInlineWarrantBoundaries 1`] = `
+Array [
+  0.01,
+  0.01,
+]
+`;
+
+exports[`getInlineWarrantCurrentInfoByAccount 1`] = `
+Array [
+  Object {
+    "amount": 6,
+    "date": 1500000000000,
+    "status": "pending",
+    "txHash": "0X00ABC",
+  },
+]
+`;
+
+exports[`getInlineWarrantHistoryInfoByAccount 1`] = `
 Object {
   "boundETH": Array [
     "202.60",
@@ -684,24 +702,6 @@ Object {
   ],
   "settleETH": 200,
 }
-`;
-
-exports[`getBoundaries 1`] = `
-Array [
-  0.01,
-  0.01,
-]
-`;
-
-exports[`getCurrentRoundInfo 1`] = `
-Array [
-  Object {
-    "amount": 6,
-    "date": 1500000000000,
-    "status": "pending",
-    "txHash": "0X00ABC",
-  },
-]
 `;
 
 exports[`getPriceKeyField 1`] = `"invalid period"`;
@@ -1586,7 +1586,7 @@ Array [
 ]
 `;
 
-exports[`insertStakingEntry 1`] = `
+exports[`insertStakingUIEvent 1`] = `
 Array [
   Array [
     Object {
