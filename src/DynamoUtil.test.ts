@@ -848,11 +848,14 @@ const uiRedeem = {
 	ScannedCount: 1
 };
 
-DynamoUtil.getUTCNowTimestamp = jest.fn(() => 1234567890).bind(DynamoUtil);
+test('getUTCNowTimestamp', () => {
+	expect(DynamoUtil.getUTCNowTimestamp()).toBeGreaterThan(0);
+});
 
 const dynamoUtil = new DynamoUtil('config' as any, true, 'process');
 
 test('constructor', async () => {
+	DynamoUtil.getUTCNowTimestamp = jest.fn(() => 1234567890).bind(DynamoUtil);
 	expect((DynamoDB as any).mock.calls).toMatchSnapshot();
 	expect(dynamoUtil.ddb).toBeTruthy();
 	expect(dynamoUtil.live).toBeTruthy();
@@ -1780,7 +1783,7 @@ test('getInlineWarrantHistory', async () => {
 });
 
 test('getInlineWarrantHistory no data', async () => {
-	dynamoUtil.live = false;
+	dynamoUtil.live = true;
 	dynamoUtil.queryData = jest.fn(() =>
 		Promise.resolve({
 			Count: 0,
@@ -1788,7 +1791,7 @@ test('getInlineWarrantHistory no data', async () => {
 		})
 	);
 	expect(await dynamoUtil.getInlineWarrantHistory(WrapperConstants.DUMMY_ADDR)).toBeNull();
-	dynamoUtil.live = true;
+	dynamoUtil.live = false;
 });
 
 const currentRoundInfo = {
@@ -1817,7 +1820,7 @@ test('getInlineWarrantUIEvents', async () => {
 });
 
 test('getInlineWarrantUIEvents no data', async () => {
-	dynamoUtil.live = false;
+	dynamoUtil.live = true;
 	dynamoUtil.queryData = jest.fn(() =>
 		Promise.resolve({
 			Count: 0,
@@ -1827,7 +1830,7 @@ test('getInlineWarrantUIEvents no data', async () => {
 	expect(
 		await dynamoUtil.getInlineWarrantUIEvents(WrapperConstants.DUMMY_ADDR)
 	).toBeNull();
-	dynamoUtil.live = true;
+	dynamoUtil.live = false;
 });
 const stakingEntry = {
 	address: WrapperConstants.DUMMY_ADDR,
@@ -1842,11 +1845,11 @@ test('insertStakingUIEvent', async () => {
 });
 
 test('insertStakingUIEvent dev', async () => {
-	dynamoUtil.live = false;
+	dynamoUtil.live = true;
 	dynamoUtil.insertData = jest.fn(() => Promise.resolve());
 	await dynamoUtil.insertStakingUIEvent(stakingEntry);
 	expect((dynamoUtil.insertData as jest.Mock).mock.calls).toMatchSnapshot();
-	dynamoUtil.live = true;
+	dynamoUtil.live = false;
 });
 
 const boundaries = {
@@ -1875,7 +1878,7 @@ test('getInlineWarrantBoundaryByDate', async () => {
 });
 
 test('getInlineWarrantBoundaryByDate dev', async () => {
-	dynamoUtil.live = false;
+	dynamoUtil.live = true;
 	dynamoUtil.queryData = jest.fn(() =>
 		Promise.resolve({
 			Count: 0,
@@ -1883,9 +1886,5 @@ test('getInlineWarrantBoundaryByDate dev', async () => {
 		})
 	);
 	expect(await dynamoUtil.getInlineWarrantBoundaryByDate('2019-02-02')).toMatchSnapshot();
-	dynamoUtil.live = true;
-});
-
-test('getUTCNowTimestamp', () => {
-	expect(DynamoUtil.getUTCNowTimestamp()).toBeGreaterThan(0);
+	dynamoUtil.live = false;
 });
