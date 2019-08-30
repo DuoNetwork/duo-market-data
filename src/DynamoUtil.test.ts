@@ -1786,14 +1786,14 @@ const currentRoundInfo = {
 	updateAt: { S: '1500000000000' }
 };
 
-test('getInlineWarrantCurrentInfoByAccount', async () => {
+test('getInlineWarrantUIEvents', async () => {
 	dynamoUtil.queryData = jest.fn(() =>
 		Promise.resolve({
 			Count: 1,
 			Items: [currentRoundInfo as any]
 		})
 	);
-	expect(await dynamoUtil.getInlineWarrantCurrentInfoByAccount(WrapperConstants.DUMMY_ADDR)).toMatchSnapshot();
+	expect(await dynamoUtil.getInlineWarrantUIEvents(WrapperConstants.DUMMY_ADDR)).toMatchSnapshot();
 });
 
 const stakingEntry = {

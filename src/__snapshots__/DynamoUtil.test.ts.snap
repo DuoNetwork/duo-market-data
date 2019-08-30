@@ -674,17 +674,6 @@ Array [
 ]
 `;
 
-exports[`getInlineWarrantCurrentInfoByAccount 1`] = `
-Array [
-  Object {
-    "amount": 6,
-    "date": 1500000000000,
-    "status": "pending",
-    "txHash": "0X00ABC",
-  },
-]
-`;
-
 exports[`getInlineWarrantHistoryInfoByAccount 1`] = `
 Object {
   "boundETH": Array [
@@ -702,6 +691,17 @@ Object {
   ],
   "settleETH": 200,
 }
+`;
+
+exports[`getInlineWarrantUIEvents 1`] = `
+Array [
+  Object {
+    "amount": 6,
+    "date": 1500000000000,
+    "status": "pending",
+    "txHash": "0X00ABC",
+  },
+]
 `;
 
 exports[`getPriceKeyField 1`] = `"invalid period"`;

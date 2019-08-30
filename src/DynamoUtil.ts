@@ -753,7 +753,7 @@ export class DynamoUtil {
 		} else return {};
 	}
 
-	public async getInlineWarrantCurrentInfoByAccount(account: string) {
+	public async getInlineWarrantUIEvents(account: string) {
 		const params = {
 			TableName: this.live
 				? `${CST.DB_DUO}.${CST.DB_LIVE}.${CST.DB_UI_EVENTS}`
