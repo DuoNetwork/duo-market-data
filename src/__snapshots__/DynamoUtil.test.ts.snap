@@ -667,7 +667,7 @@ Array [
 ]
 `;
 
-exports[`getInlineWarrantBoundaries 1`] = `
+exports[`getInlineWarrantBoundaryByDate 1`] = `
 Array [
   0.01,
   0.01,

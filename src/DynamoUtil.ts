@@ -801,7 +801,7 @@ export class DynamoUtil {
 		await this.insertData(params);
 	}
 
-	public async getInlineWarrantBoundaries(date: string) {
+	public async getInlineWarrantBoundaryByDate(date: string) {
 		const params = {
 			TableName: this.live ? CST.BOUNDARIESTABLE : CST.BOUNDARIESTABLEKOVAN,
 			KeyConditionExpression: `${CST.DB_TX_QTEBASE} = :${CST.DB_TX_QTEBASE} AND #${CST.DB_DATE} = :${CST.DB_DATE}`,

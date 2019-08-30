@@ -1824,14 +1824,14 @@ const boundaries2 = {
 	updatedAt: { S: '1500000000000' }
 };
 
-test('getInlineWarrantBoundaries', async () => {
+test('getInlineWarrantBoundaryByDate', async () => {
 	dynamoUtil.queryData = jest.fn(() =>
 		Promise.resolve({
 			Count: 1,
 			Items: [boundaries as any, boundaries2 as any]
 		})
 	);
-	expect(await dynamoUtil.getInlineWarrantBoundaries('2019-02-02')).toMatchSnapshot();
+	expect(await dynamoUtil.getInlineWarrantBoundaryByDate('2019-02-02')).toMatchSnapshot();
 });
 
 test('getUTCNowTimestamp', () => {
