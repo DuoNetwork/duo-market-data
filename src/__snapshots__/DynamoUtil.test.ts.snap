@@ -667,6 +667,56 @@ Array [
 ]
 `;
 
+exports[`getInlineWarrantBoundaryByDate 1`] = `
+Array [
+  0.01,
+  0.01,
+]
+`;
+
+exports[`getInlineWarrantBoundaryByDate dev 1`] = `
+Array [
+  0,
+  0,
+]
+`;
+
+exports[`getInlineWarrantHistory 1`] = `
+Object {
+  "boundETH": Array [
+    "202.60",
+    "197.40",
+  ],
+  "date": "2019-06-08",
+  "roundReturn": Array [
+    4,
+    8,
+  ],
+  "roundStakingAmount": Array [
+    20,
+    40,
+  ],
+  "settleETH": 200,
+}
+`;
+
+exports[`getInlineWarrantUIEvents 1`] = `
+Array [
+  Object {
+    "amount": 6,
+    "date": 1500000000000,
+    "status": "pending",
+    "txHash": "0X00ABC",
+  },
+  Object {
+    "amount": 6,
+    "date": 1510000000000,
+    "status": "pending",
+    "txHash": "0X00ABC",
+  },
+]
+`;
+
 exports[`getPriceKeyField 1`] = `"invalid period"`;
 
 exports[`getPrices 1`] = `
@@ -1544,6 +1594,54 @@ Array [
         },
       },
       "TableName": "duo.live.status",
+    },
+  ],
+]
+`;
+
+exports[`insertStakingUIEvent 1`] = `
+Array [
+  Array [
+    Object {
+      "Item": Object {
+        "amount": Object {
+          "S": "0",
+        },
+        "eventKey": Object {
+          "S": "0x0",
+        },
+        "transactionHash": Object {
+          "S": "0x00ABC",
+        },
+        "updateAt": Object {
+          "S": "9876543210",
+        },
+      },
+      "TableName": "duo.uiEvents.dev",
+    },
+  ],
+]
+`;
+
+exports[`insertStakingUIEvent dev 1`] = `
+Array [
+  Array [
+    Object {
+      "Item": Object {
+        "amount": Object {
+          "S": "0",
+        },
+        "eventKey": Object {
+          "S": "0x0",
+        },
+        "transactionHash": Object {
+          "S": "0x00ABC",
+        },
+        "updateAt": Object {
+          "S": "9876543210",
+        },
+      },
+      "TableName": "duo.live.uiEvents",
     },
   ],
 ]

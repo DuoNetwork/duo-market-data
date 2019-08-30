@@ -74,3 +74,10 @@ export interface IPriceStatus extends IStatus {
 export interface INodeStatus extends IStatus {
 	block: number;
 }
+
+export interface IStakingEntry {
+	address: string;
+	amount: string;
+	transactionHash: string;
+	updatedAt: string;
+}
