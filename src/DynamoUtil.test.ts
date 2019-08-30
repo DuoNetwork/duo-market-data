@@ -1825,14 +1825,13 @@ const boundaries2 = {
 };
 
 test('getInlineWarrantBoundaries', async () => {
-	DynamoUtil.getLocalTodayString = jest.fn(() => '2019-01-01');
 	dynamoUtil.queryData = jest.fn(() =>
 		Promise.resolve({
 			Count: 1,
 			Items: [boundaries as any, boundaries2 as any]
 		})
 	);
-	expect(await dynamoUtil.getInlineWarrantBoundaries()).toMatchSnapshot();
+	expect(await dynamoUtil.getInlineWarrantBoundaries('2019-02-02')).toMatchSnapshot();
 });
 
 test('getUTCNowTimestamp', () => {
@@ -1841,8 +1840,4 @@ test('getUTCNowTimestamp', () => {
 
 test('getUTCNowDateString', () => {
 	expect(DynamoUtil.getUTCNowDateString()).toHaveLength(10);
-})
-
-test('getLocalTodayString', () => {
-	expect(DynamoUtil.getLocalTodayString()).toHaveLength(10);
 })

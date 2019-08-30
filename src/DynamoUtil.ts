@@ -801,22 +801,22 @@ export class DynamoUtil {
 		await this.insertData(params);
 	}
 
-	public async getInlineWarrantBoundaries() {
+	public async getInlineWarrantBoundaries(date: string) {
 		const params = {
 			TableName: this.live ? CST.BOUNDARIESTABLE : CST.BOUNDARIESTABLEKOVAN,
-			KeyConditionExpression: `${CST.DB_TX_QTEBASE} = :${CST.DB_TX_QTEBASE}`,
+			KeyConditionExpression: `${CST.DB_TX_QTEBASE} = :${CST.DB_TX_QTEBASE} AND #${CST.DB_DATE} = :${CST.DB_DATE}`,
+			ExpressionAttributeNames: {
+				[`#${CST.DB_DATE}`]: CST.DB_DATE
+			},
 			ExpressionAttributeValues: {
-				[`:${CST.DB_TX_QTEBASE}`]: { S: `${CST.DB_ETHUSD}` }
+				[`:${CST.DB_TX_QTEBASE}`]: { S: `${CST.DB_ETHUSD}` },
+				[`:${CST.DB_DATE}`]: { S: date }
 			}
 		};
 		const data = await this.queryData(params);
 		let boundaries = [0, 0];
 		if (data.Count)
-			(data.Items as any).forEach((item: any) => {
-				if (item.date.S === DynamoUtil.getLocalTodayString())
-					boundaries = [Number(item.ub.S), Number(item.lb.S)];
-			});
-
+			boundaries = [Number((data.Items as any)[0].ub.S), Number((data.Items as any)[0].lb.S)];
 		return boundaries;
 	}
 
@@ -833,11 +833,7 @@ export class DynamoUtil {
 	}
 
 	public static getUTCNowDateString() {
-		return moment.utc().format('YYYY-MM-DD')
-	}
-
-	public static getLocalTodayString() {
-		return moment().format('YYYY-MM-DD')
+		return moment.utc().format('YYYY-MM-DD');
 	}
 }
 

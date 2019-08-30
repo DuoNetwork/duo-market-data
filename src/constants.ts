@@ -75,6 +75,7 @@ export const DB_STATUS_EVENT_PUBLIC_OTHERS = 'EVENT_AWS_PUBLIC_OTHERS';
 export const DB_ADDRESS = 'address';
 export const DB_ETHUSD = 'ETH|USD';
 export const DB_PENDING = 'pending';
+export const DB_DATE = 'date';
 export const WARRENTTABLE = 'duo.live.warrant';
 export const WARRENTTABLEKOVAN = 'duo.dev.warrant';
 export const BOUNDARIESTABLE = 'duo.live.boundaries';
