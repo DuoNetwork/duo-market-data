@@ -813,7 +813,7 @@ export class DynamoUtil {
 		let boundaries = [0, 0];
 		if (data.Count)
 			(data.Items as any).forEach((item: any) => {
-				if (item.date.S === DynamoUtil.getNowDateString())
+				if (item.date.S === DynamoUtil.getLocalTodayString())
 					boundaries = [Number(item.ub.S), Number(item.lb.S)];
 			});
 
@@ -836,7 +836,7 @@ export class DynamoUtil {
 		return moment.utc().format('YYYY-MM-DD')
 	}
 
-	public static getNowDateString() {
+	public static getLocalTodayString() {
 		return moment().format('YYYY-MM-DD')
 	}
 }
