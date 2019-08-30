@@ -674,7 +674,7 @@ Array [
 ]
 `;
 
-exports[`getInlineWarrantHistoryInfoByAccount 1`] = `
+exports[`getInlineWarrantHistory 1`] = `
 Object {
   "boundETH": Array [
     "202.60",

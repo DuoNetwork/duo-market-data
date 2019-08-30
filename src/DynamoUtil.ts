@@ -721,7 +721,7 @@ export class DynamoUtil {
 		});
 	}
 
-	public async getInlineWarrantHistoryInfoByAccount(account: string) {
+	public async getInlineWarrantHistory(account: string) {
 		const params = {
 			TableName: this.live ? CST.WARRENTTABLE : CST.WARRENTTABLEKOVAN,
 			KeyConditionExpression: `${CST.DB_ADDRESS} = :${CST.DB_ADDRESS}`,

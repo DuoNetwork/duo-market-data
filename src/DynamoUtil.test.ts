@@ -1769,14 +1769,14 @@ const addressInfo = {
 	updatedAt: { S: '1560000000000' }
 };
 
-test('getInlineWarrantHistoryInfoByAccount', async () => {
+test('getInlineWarrantHistory', async () => {
 	dynamoUtil.queryData = jest.fn(() =>
 		Promise.resolve({
 			Count: 1,
 			Items: [addressInfo as any]
 		})
 	);
-	expect(await dynamoUtil.getInlineWarrantHistoryInfoByAccount(WrapperConstants.DUMMY_ADDR)).toMatchSnapshot();
+	expect(await dynamoUtil.getInlineWarrantHistory(WrapperConstants.DUMMY_ADDR)).toMatchSnapshot();
 });
 
 const currentRoundInfo = {
