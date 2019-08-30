@@ -788,7 +788,7 @@ export class DynamoUtil {
 		const data: AttributeMap = {
 			eventKey: { S: item.address.toLowerCase() },
 			amount: { S: item.amount },
-			transactionHash: { S: item.txHash },
+			transactionHash: { S: item.transactionHash },
 			updateAt: { S: DynamoUtil.getUTCNowTimestamp() + '' }
 		};
 		const params = {

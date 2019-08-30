@@ -1800,7 +1800,7 @@ test('getInlineWarrantCurrentInfoByAccount', async () => {
 const stakingEntry = {
 	address: WrapperConstants.DUMMY_ADDR,
 	amount: '0',
-	txHash: '0x00ABC',
+	transactionHash: '0x00ABC',
 	updatedAt: '1500000000000'
 };
 test('insertStakingUIEvent', async () => {

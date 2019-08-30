@@ -78,6 +78,6 @@ export interface INodeStatus extends IStatus {
 export interface IStakingEntry {
 	address: string;
 	amount: string;
-	txHash: string;
+	transactionHash: string;
 	updatedAt: string;
 }
