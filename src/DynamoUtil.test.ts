@@ -1805,7 +1805,7 @@ const stakingEntry = {
 };
 test('insertStakingEntry', async () => {
 	dynamoUtil.insertData = jest.fn(() => Promise.resolve());
-	await dynamoUtil.insetStakingEntry(stakingEntry);
+	await dynamoUtil.insertStakingEntry(stakingEntry);
 	expect((dynamoUtil.insertData as jest.Mock).mock.calls).toMatchSnapshot();
 });
 

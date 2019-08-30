@@ -784,7 +784,7 @@ export class DynamoUtil {
 		} else return [];
 	}
 
-	public async insetStakingEntry(item: IStakingEntry) {
+	public async insertStakingEntry(item: IStakingEntry) {
 		const data: AttributeMap = {
 			eventKey: { S: item.address.toLowerCase() },
 			amount: { S: item.amount },
