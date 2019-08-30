@@ -773,11 +773,7 @@ export class DynamoUtil {
 					txHash: item.transactionHash.S,
 					status: CST.DB_PENDING
 				};
-				if (
-					moment.utc(Number(item.updateAt.S)).format('YYYY-MM-DD') ===
-					DynamoUtil.getUTCNowDateString()
-				)
-					records.push(entry);
+				records.push(entry);
 			}
 			records.sort((a, b) => a.date - b.date);
 			return records;
@@ -830,10 +826,6 @@ export class DynamoUtil {
 
 	public static getUTCNowTimestamp() {
 		return moment().valueOf();
-	}
-
-	public static getUTCNowDateString() {
-		return moment.utc().format('YYYY-MM-DD');
 	}
 }
 

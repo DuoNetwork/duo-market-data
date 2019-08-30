@@ -1787,7 +1787,6 @@ const currentRoundInfo = {
 };
 
 test('getInlineWarrantCurrentInfoByAccount', async () => {
-	DynamoUtil.getUTCNowDateString = jest.fn(() => moment.utc(1500000000000).format('YYYY-MM-DD'));
 	dynamoUtil.queryData = jest.fn(() =>
 		Promise.resolve({
 			Count: 1,
@@ -1838,6 +1837,3 @@ test('getUTCNowTimestamp', () => {
 	expect(DynamoUtil.getUTCNowTimestamp()).toBeGreaterThan(0);
 })
 
-test('getUTCNowDateString', () => {
-	expect(DynamoUtil.getUTCNowDateString()).toHaveLength(10);
-})
