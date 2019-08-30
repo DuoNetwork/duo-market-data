@@ -777,7 +777,7 @@ export class DynamoUtil {
 			}
 			records.sort((a, b) => a.date - b.date);
 			return records;
-		} else return [];
+		} else return null;
 	}
 
 	public async insertStakingUIEvent(item: IStakingEntry) {

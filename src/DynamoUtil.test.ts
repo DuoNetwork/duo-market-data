@@ -1797,12 +1797,18 @@ const currentRoundInfo = {
 	amount: { S: '6' },
 	updateAt: { S: '1500000000000' }
 };
+const currentRoundInfo2 = {
+	eventKey: { S: WrapperConstants.DUMMY_ADDR },
+	transactionHash: { S: '0X00ABC' },
+	amount: { S: '6' },
+	updateAt: { S: '1510000000000' }
+};
 
 test('getInlineWarrantUIEvents', async () => {
 	dynamoUtil.queryData = jest.fn(() =>
 		Promise.resolve({
 			Count: 1,
-			Items: [currentRoundInfo as any]
+			Items: [currentRoundInfo as any, currentRoundInfo2 as any]
 		})
 	);
 	expect(
@@ -1810,6 +1816,19 @@ test('getInlineWarrantUIEvents', async () => {
 	).toMatchSnapshot();
 });
 
+test('getInlineWarrantUIEvents no data', async () => {
+	dynamoUtil.live = false;
+	dynamoUtil.queryData = jest.fn(() =>
+		Promise.resolve({
+			Count: 0,
+			Items: [currentRoundInfo as any]
+		})
+	);
+	expect(
+		await dynamoUtil.getInlineWarrantUIEvents(WrapperConstants.DUMMY_ADDR)
+	).toBeNull();
+	dynamoUtil.live = true;
+});
 const stakingEntry = {
 	address: WrapperConstants.DUMMY_ADDR,
 	amount: '0',
@@ -1820,6 +1839,14 @@ test('insertStakingUIEvent', async () => {
 	dynamoUtil.insertData = jest.fn(() => Promise.resolve());
 	await dynamoUtil.insertStakingUIEvent(stakingEntry);
 	expect((dynamoUtil.insertData as jest.Mock).mock.calls).toMatchSnapshot();
+});
+
+test('insertStakingUIEvent dev', async () => {
+	dynamoUtil.live = false;
+	dynamoUtil.insertData = jest.fn(() => Promise.resolve());
+	await dynamoUtil.insertStakingUIEvent(stakingEntry);
+	expect((dynamoUtil.insertData as jest.Mock).mock.calls).toMatchSnapshot();
+	dynamoUtil.live = true;
 });
 
 const boundaries = {
@@ -1845,6 +1872,18 @@ test('getInlineWarrantBoundaryByDate', async () => {
 		})
 	);
 	expect(await dynamoUtil.getInlineWarrantBoundaryByDate('2019-02-02')).toMatchSnapshot();
+});
+
+test('getInlineWarrantBoundaryByDate dev', async () => {
+	dynamoUtil.live = false;
+	dynamoUtil.queryData = jest.fn(() =>
+		Promise.resolve({
+			Count: 0,
+			Items: [boundaries as any, boundaries2 as any]
+		})
+	);
+	expect(await dynamoUtil.getInlineWarrantBoundaryByDate('2019-02-02')).toMatchSnapshot();
+	dynamoUtil.live = true;
 });
 
 test('getUTCNowTimestamp', () => {

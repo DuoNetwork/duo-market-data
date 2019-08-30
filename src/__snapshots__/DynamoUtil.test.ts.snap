@@ -674,6 +674,13 @@ Array [
 ]
 `;
 
+exports[`getInlineWarrantBoundaryByDate dev 1`] = `
+Array [
+  0,
+  0,
+]
+`;
+
 exports[`getInlineWarrantHistory 1`] = `
 Object {
   "boundETH": Array [
@@ -698,6 +705,12 @@ Array [
   Object {
     "amount": 6,
     "date": 1500000000000,
+    "status": "pending",
+    "txHash": "0X00ABC",
+  },
+  Object {
+    "amount": 6,
+    "date": 1510000000000,
     "status": "pending",
     "txHash": "0X00ABC",
   },
@@ -1605,6 +1618,30 @@ Array [
         },
       },
       "TableName": "duo.live.uiEvents",
+    },
+  ],
+]
+`;
+
+exports[`insertStakingUIEvent dev 1`] = `
+Array [
+  Array [
+    Object {
+      "Item": Object {
+        "amount": Object {
+          "S": "0",
+        },
+        "eventKey": Object {
+          "S": "0x0",
+        },
+        "transactionHash": Object {
+          "S": "0x00ABC",
+        },
+        "updateAt": Object {
+          "S": "9876543210",
+        },
+      },
+      "TableName": "duo.uiEvents.dev",
     },
   ],
 ]
