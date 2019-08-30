@@ -750,7 +750,7 @@ export class DynamoUtil {
 				date: moment(Number((data.Items as any)[0].updatedAt.S)).format('YYYY-MM-DD')
 			};
 			return addressInfo;
-		} else return {};
+		} else return null;
 	}
 
 	public async getInlineWarrantUIEvents(account: string) {

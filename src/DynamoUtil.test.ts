@@ -1779,6 +1779,18 @@ test('getInlineWarrantHistory', async () => {
 	expect(await dynamoUtil.getInlineWarrantHistory(WrapperConstants.DUMMY_ADDR)).toMatchSnapshot();
 });
 
+test('getInlineWarrantHistory no data', async () => {
+	dynamoUtil.live = false;
+	dynamoUtil.queryData = jest.fn(() =>
+		Promise.resolve({
+			Count: 0,
+			Items: [addressInfo as any]
+		})
+	);
+	expect(await dynamoUtil.getInlineWarrantHistory(WrapperConstants.DUMMY_ADDR)).toBeNull();
+	dynamoUtil.live = true;
+});
+
 const currentRoundInfo = {
 	eventKey: { S: WrapperConstants.DUMMY_ADDR },
 	transactionHash: { S: '0X00ABC' },
@@ -1793,7 +1805,9 @@ test('getInlineWarrantUIEvents', async () => {
 			Items: [currentRoundInfo as any]
 		})
 	);
-	expect(await dynamoUtil.getInlineWarrantUIEvents(WrapperConstants.DUMMY_ADDR)).toMatchSnapshot();
+	expect(
+		await dynamoUtil.getInlineWarrantUIEvents(WrapperConstants.DUMMY_ADDR)
+	).toMatchSnapshot();
 });
 
 const stakingEntry = {
@@ -1835,5 +1849,4 @@ test('getInlineWarrantBoundaryByDate', async () => {
 
 test('getUTCNowTimestamp', () => {
 	expect(DynamoUtil.getUTCNowTimestamp()).toBeGreaterThan(0);
-})
-
+});

@@ -1604,7 +1604,7 @@ Array [
           "S": "9876543210",
         },
       },
-      "TableName": "duo.uiEvents.dev",
+      "TableName": "duo.live.uiEvents",
     },
   ],
 ]
