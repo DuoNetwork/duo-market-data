@@ -50,14 +50,13 @@ const staking = {
 			amtInWei: { S: '300000000000000000000' },
 			logStatus: { S: 'mined' },
 			systime: { N: '1559291634816' },
-			eventKey:
-			{ S: '0x395cca6DeC865eb1F633D84C77220c40f26395bf|Unstake|2019-05-31' },
+			eventKey: { S: '0x395cca6DeC865eb1F633D84C77220c40f26395bf|Unstake|2019-05-31' },
 			from: { S: '0xd9cCecFC05C8Ed27Ef6256594b4d8edd57135a6c' },
 			oracle: { S: '0xE81Bf853ab451E52ed926797eDe98e4Ac6E7C562' },
-			blockHash:
-			{ S: '0x06eb0a2dfb062d94add86c6f3930a1f0a1693caedc3c47699dad9dceb7080b5d' },
-			transactionHash:
-			{ S: '0xb3de73599c2dc20a0cd6c34fa190bf7ca147102711808f69406f78d90c7ea76b' }
+			blockHash: { S: '0x06eb0a2dfb062d94add86c6f3930a1f0a1693caedc3c47699dad9dceb7080b5d' },
+			transactionHash: {
+				S: '0xb3de73599c2dc20a0cd6c34fa190bf7ca147102711808f69406f78d90c7ea76b'
+			}
 		},
 		{
 			timestampId: { S: '1559291757000|log_bf2397ac' },
@@ -65,14 +64,13 @@ const staking = {
 			amtInWei: { S: '300000000000000000000' },
 			logStatus: { S: 'mined' },
 			systime: { N: '1559291936105' },
-			eventKey:
-			{ S: '0x395cca6DeC865eb1F633D84C77220c40f26395bf|Unstake|2019-05-31' },
+			eventKey: { S: '0x395cca6DeC865eb1F633D84C77220c40f26395bf|Unstake|2019-05-31' },
 			from: { S: '0x7005f3e9ed4dF1B0F5d446d108D69685a0b18D22' },
 			oracle: { S: '0x8cff57292AB098728F26F7D2e2BdFc6b1729DDDB' },
-			blockHash:
-			{ S: '0xbfd6f50264fb49d2ba259d8f1853dedb0769d57626f77a50ece6b9b7a9366415' },
-			transactionHash:
-			{ S: '0x2afff3174c86c4cb3e7e74748ca086380f9d456f132ab91cd5ff3746862052e7' }
+			blockHash: { S: '0xbfd6f50264fb49d2ba259d8f1853dedb0769d57626f77a50ece6b9b7a9366415' },
+			transactionHash: {
+				S: '0x2afff3174c86c4cb3e7e74748ca086380f9d456f132ab91cd5ff3746862052e7'
+			}
 		}
 	],
 	Count: 1,
@@ -1499,20 +1497,14 @@ test('parseConversion', () => expect(dynamoUtil.parseConversion(conversion)).toM
 test('queryStakingEvent', async () => {
 	dynamoUtil.live = true;
 	dynamoUtil.queryData = jest.fn(() => Promise.resolve({}));
-	await dynamoUtil.queryStakingEvent(
-		WrapperConstants.DUMMY_ADDR,
-		['date1', 'date2']
-	);
+	await dynamoUtil.queryStakingEvent(WrapperConstants.DUMMY_ADDR, ['date1', 'date2']);
 	expect((dynamoUtil.queryData as jest.Mock).mock.calls).toMatchSnapshot();
 });
 
 test('queryStakingEvent, dev', async () => {
 	dynamoUtil.live = false;
 	dynamoUtil.queryData = jest.fn(() => Promise.resolve({}));
-	await dynamoUtil.queryStakingEvent(
-		WrapperConstants.DUMMY_ADDR,
-		['date1', 'date2']
-	);
+	await dynamoUtil.queryStakingEvent(WrapperConstants.DUMMY_ADDR, ['date1', 'date2']);
 	expect((dynamoUtil.queryData as jest.Mock).mock.calls).toMatchSnapshot();
 });
 
@@ -1766,4 +1758,79 @@ test('getSingleKeyPeriodPrices', async () => {
 	await dynamoUtil.getSingleKeyPeriodPrices('src', 360, 1234567890);
 	await dynamoUtil.getSingleKeyPeriodPrices('src', 1440, 1234567890);
 	expect((dynamoUtil.queryData as jest.Mock).mock.calls).toMatchSnapshot();
+});
+
+const addressInfo = {
+	address: { S: WrapperConstants.DUMMY_ADDR },
+	boundETH: { S: '200.00,0.013,0.013' },
+	roundReturn: { S: '4,8' },
+	roundStakingAmount: { S: '20,40' },
+	settleETH: { S: '200.00' },
+	updatedAt: { S: '1560000000000' }
+};
+
+test('getAddressInfo', async () => {
+	dynamoUtil.queryData = jest.fn(() =>
+		Promise.resolve({
+			Count: 1,
+			Items: [addressInfo as any]
+		})
+	);
+	expect(await dynamoUtil.getAddressInfo(WrapperConstants.DUMMY_ADDR)).toMatchSnapshot();
+});
+
+const currentRoundInfo = {
+	eventKey: { S: WrapperConstants.DUMMY_ADDR },
+	transactionHash: { S: '0X00ABC' },
+	amount: { S: '6' },
+	updateAt: { S: '1500000000000' }
+};
+
+test('getCurrentRoundInfo', async () => {
+	DynamoUtil.getUTCNowDateString = jest.fn(() => moment.utc(1500000000000).format('YYYY-MM-DD'));
+	dynamoUtil.queryData = jest.fn(() =>
+		Promise.resolve({
+			Count: 1,
+			Items: [currentRoundInfo as any]
+		})
+	);
+	expect(await dynamoUtil.getCurrentRoundInfo(WrapperConstants.DUMMY_ADDR)).toMatchSnapshot();
+});
+
+const stakingEntry = {
+	address: WrapperConstants.DUMMY_ADDR,
+	amount: '0',
+	txHash: '0x00ABC',
+	updatedAt: '1500000000000'
+};
+test('insertStakingEntry', async () => {
+	dynamoUtil.insertData = jest.fn(() => Promise.resolve());
+	await dynamoUtil.insetStakingEntry(stakingEntry);
+	expect((dynamoUtil.insertData as jest.Mock).mock.calls).toMatchSnapshot();
+});
+
+const boundaries = {
+	quoteBase: { S: 'ETH|USD' },
+	date: { S: '2019-01-01' },
+	lb: { S: '0.01' },
+	ub: { S: '0.01' },
+	updatedAt: { S: '1500000000000' }
+};
+const boundaries2 = {
+	quoteBase: { S: 'ETH|USD' },
+	date: { S: '2019-02-02' },
+	lb: { S: '0.02' },
+	ub: { S: '0.02' },
+	updatedAt: { S: '1500000000000' }
+};
+
+test('getBoundaries', async () => {
+	DynamoUtil.getNowDateString = jest.fn(() => '2019-01-01');
+	dynamoUtil.queryData = jest.fn(() =>
+		Promise.resolve({
+			Count: 1,
+			Items: [boundaries as any, boundaries2 as any]
+		})
+	);
+	expect(await dynamoUtil.getBoundaries()).toMatchSnapshot();
 });

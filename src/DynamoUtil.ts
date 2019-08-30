@@ -9,6 +9,7 @@ import DynamoDB, {
 	ScanOutput
 } from 'aws-sdk/clients/dynamodb';
 import AWS from 'aws-sdk/global';
+import * as d3 from 'd3-format';
 import moment from 'moment';
 import * as CST from './constants';
 import {
@@ -17,6 +18,7 @@ import {
 	IPrice,
 	IPriceStatus,
 	IStake,
+	IStakingEntry,
 	IStatus,
 	ITotalSupply,
 	ITrade
@@ -221,9 +223,7 @@ export class DynamoUtil {
 				}
 			};
 			if (pair) {
-				params.KeyConditionExpression += ` AND ${
-					CST.DB_TX_QUOTE_BASE_ID
-				} BETWEEN :start AND :end`;
+				params.KeyConditionExpression += ` AND ${CST.DB_TX_QUOTE_BASE_ID} BETWEEN :start AND :end`;
 				if (params.ExpressionAttributeValues) {
 					params.ExpressionAttributeValues[':start'] = { S: `${pair}|` };
 					params.ExpressionAttributeValues[':end'] = { S: `${pair}|z` };
@@ -255,9 +255,7 @@ export class DynamoUtil {
 			};
 
 			if (pair) {
-				params.KeyConditionExpression += ` AND ${
-					CST.DB_QUOTE_BASE_TS
-				} BETWEEN :start AND :end`;
+				params.KeyConditionExpression += ` AND ${CST.DB_QUOTE_BASE_TS} BETWEEN :start AND :end`;
 				if (params.ExpressionAttributeValues) {
 					params.ExpressionAttributeValues[':start'] = { S: `${pair}|${timestamp}` };
 					params.ExpressionAttributeValues[':end'] = {
@@ -405,9 +403,7 @@ export class DynamoUtil {
 		};
 
 		if (pair) {
-			params.KeyConditionExpression += ` AND ${
-				CST.DB_TX_QUOTE_BASE_ID
-			} BETWEEN :start AND :end`;
+			params.KeyConditionExpression += ` AND ${CST.DB_TX_QUOTE_BASE_ID} BETWEEN :start AND :end`;
 			if (params.ExpressionAttributeValues) {
 				params.ExpressionAttributeValues[':start'] = { S: `${pair}|` };
 				params.ExpressionAttributeValues[':end'] = { S: `${pair}|z` };
@@ -725,6 +721,105 @@ export class DynamoUtil {
 		});
 	}
 
+	public async getAddressInfo(account: string) {
+		const params = {
+			TableName: this.live ? CST.WARRENTTABLE : CST.WARRENTTABLEKOVAN,
+			KeyConditionExpression: `${CST.DB_ADDRESS} = :${CST.DB_ADDRESS}`,
+			ExpressionAttributeValues: {
+				[`:${CST.DB_ADDRESS}`]: { S: account.toLowerCase() }
+			}
+		};
+		const data = await this.queryData(params);
+		if (data.Count) {
+			const roundStakingAmount = (data.Items as any)[0].roundStakingAmount.S.split(',').map(
+				(d: any) => Number(d)
+			);
+			const roundReturn = (data.Items as any)[0].roundReturn.S.split(',').map((d: any) =>
+				Number(d)
+			);
+			const boundETH = (data.Items as any)[0].boundETH.S.split(',');
+			const rangeETH = [
+				d3.format(',.2f')(Number(boundETH[0]) * (1 + Number(boundETH[1]))),
+				d3.format(',.2f')(Number(boundETH[0]) * (1 - Number(boundETH[2])))
+			];
+			const addressInfo = {
+				roundStakingAmount: roundStakingAmount,
+				roundReturn: roundReturn,
+				boundETH: rangeETH,
+				settleETH: Number((data.Items as any)[0].settleETH.S),
+				date: moment(Number((data.Items as any)[0].updatedAt.S)).format('YYYY-MM-DD')
+			};
+			return addressInfo;
+		} else return {};
+	}
+
+	public async getCurrentRoundInfo(account: string) {
+		const params = {
+			TableName: this.live
+				? `${CST.DB_DUO}.${CST.DB_LIVE}.${CST.DB_UI_EVENTS}`
+				: `${CST.DB_DUO}.${CST.DB_UI_EVENTS}.${CST.DB_DEV}`,
+			KeyConditionExpression: `${CST.DB_EV_KEY} = :${CST.DB_EV_KEY}`,
+			ExpressionAttributeValues: {
+				[`:${CST.DB_EV_KEY}`]: { S: account.toLowerCase() }
+			}
+		};
+		const data = await this.queryData(params);
+		if (data.Count) {
+			const records = [];
+			for (const item of data.Items as any) {
+				const entry = {
+					date: Number(item.updateAt.S),
+					amount: Number(item.amount.S),
+					txHash: item.transactionHash.S,
+					status: CST.DB_PENDING
+				};
+				if (
+					moment.utc(Number(item.updateAt.S)).format('YYYY-MM-DD') ===
+					DynamoUtil.getUTCNowDateString()
+				)
+					records.push(entry);
+			}
+			records.sort((a, b) => a.date - b.date);
+			return records;
+		} else return [];
+	}
+
+	public async insetStakingEntry(item: IStakingEntry) {
+		const data: AttributeMap = {
+			eventKey: { S: item.address.toLowerCase() },
+			amount: { S: item.amount },
+			transactionHash: { S: item.txHash },
+			updateAt: { S: DynamoUtil.getUTCNowTimestamp() + '' }
+		};
+		const params = {
+			TableName: this.live
+				? `${CST.DB_DUO}.${CST.DB_LIVE}.${CST.DB_UI_EVENTS}`
+				: `${CST.DB_DUO}.${CST.DB_UI_EVENTS}.${CST.DB_DEV}`,
+			Item: data
+		};
+
+		await this.insertData(params);
+	}
+
+	public async getBoundaries() {
+		const params = {
+			TableName: this.live ? CST.BOUNDARIESTABLE : CST.BOUNDARIESTABLEKOVAN,
+			KeyConditionExpression: `${CST.DB_TX_QTEBASE} = :${CST.DB_TX_QTEBASE}`,
+			ExpressionAttributeValues: {
+				[`:${CST.DB_TX_QTEBASE}`]: { S: `${CST.DB_ETHUSD}` }
+			}
+		};
+		const data = await this.queryData(params);
+		let boundaries = [0, 0];
+		if (data.Count)
+			(data.Items as any).forEach((item: any) => {
+				if (item.date.S === DynamoUtil.getNowDateString())
+					boundaries = [Number(item.ub.S), Number(item.lb.S)];
+			});
+
+		return boundaries;
+	}
+
 	private log(text: any) {
 		console.log(
 			`${moment
@@ -735,6 +830,14 @@ export class DynamoUtil {
 
 	public static getUTCNowTimestamp() {
 		return moment().valueOf();
+	}
+
+	public static getUTCNowDateString() {
+		return moment.utc().format('YYYY-MM-DD')
+	}
+
+	public static getNowDateString() {
+		return moment().format('YYYY-MM-DD')
 	}
 }
 

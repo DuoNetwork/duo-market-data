@@ -16,6 +16,7 @@ export const DB_EVENTS = 'events';
 export const DB_UI_EVENTS = 'uiEvents';
 export const DB_TX_QTE = 'quote';
 export const DB_TX_BASE = 'base';
+export const DB_TX_QTEBASE = 'quoteBase';
 export const DB_TX_QUOTE_BASE_ID = 'quoteBaseId';
 export const DB_TX_SRC = 'source';
 export const DB_TX_ID = 'id';
@@ -71,6 +72,13 @@ export const DB_EV_ORACLE = 'oracle';
 export const DB_EV_AMT = 'amtInWei';
 export const DB_EN_SENDER = 'sender';
 export const DB_STATUS_EVENT_PUBLIC_OTHERS = 'EVENT_AWS_PUBLIC_OTHERS';
+export const DB_ADDRESS = 'address';
+export const DB_ETHUSD = 'ETH|USD';
+export const DB_PENDING = 'pending';
+export const WARRENTTABLE = 'duo.live.warrant';
+export const WARRENTTABLEKOVAN = 'duo.dev.warrant';
+export const BOUNDARIESTABLE = 'duo.live.boundaries';
+export const BOUNDARIESTABLEKOVAN = 'duo.dev.boundaries';
 
 export const DB_PRICES_PRIMARY_KEY_RESOLUTION: {
 	[period: number]: 'minute' | 'hour' | 'day' | 'month';
