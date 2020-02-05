@@ -1,8 +1,8 @@
 {
-	"name": "@finbook/duo-market-data",
+	"name": "duo-market-data",
 	"version": "1.0.9",
 	"description": "DUO Market Data",
-	"author": "FinBook Pte Ltd",
+	"author": "Duo Network",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
